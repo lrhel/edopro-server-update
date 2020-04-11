@@ -1,12 +1,11 @@
 const http = require('http');
 const fs = require('fs');
 
-const hostname = '127.0.0.1';
-const port = 3000;
+const hostname = process.env.HOST || '0.0.0.0';
+const port = process.env.PORT || 3000;
+const cache_prefix = process.env.CACHE_DIR || 'cache/'
 
 const db_update = require('better-sqlite3')('update.db');
-
-const cache_prefix = 'cache/'
 
 const server = http.createServer((req, res) => {
 	var headers = req.headers['user-agent'].split('-');
@@ -19,7 +18,8 @@ const server = http.createServer((req, res) => {
 	{
 		res.statusCode = 200;
 		res.setHeader('Content-Type', 'application/json');
-		const filename = cache_prefix.concat(headers[1]).concat('/').concat(headers[2]).concat('.json');
+		const version = headers[2].split('.').map(v => parseInt(v)).join('.');
+		const filename = cache_prefix.concat(headers[1]).concat('/').concat(version).concat('.json');
 		fs.readFile(filename, 'utf-8', (err, fd) => {
 		  if (err) {
 		    if (err.code === 'ENOENT') {
