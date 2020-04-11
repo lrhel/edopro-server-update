@@ -1,0 +1,18 @@
+{
+  "name": "edopro-updater",
+  "version": "1.0.0",
+  "description": "Server generating JSON for edopro to update",
+  "main": "main.js",
+  "dependencies": {
+    "better-sqlite3": "^6.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "edopro"
+  ],
+  "author": "Hel (Project Ignis)",
+  "license": "AGPL-3.0-or-later"
+}
